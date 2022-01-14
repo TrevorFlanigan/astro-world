@@ -7,4 +7,5 @@ export type NASAImage = {
   service_version: string;
   title: string;
   url: string;
+  key: string;
 };
