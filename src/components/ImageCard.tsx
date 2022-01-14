@@ -2,6 +2,7 @@ import { NASAImage } from "../types";
 import styles from "../styles/imageCard.module.css";
 import animations from "../styles/animation.module.css";
 import React, { useEffect } from "react";
+import { positional } from "yargs";
 type ImageCardProps = {
   imageData: NASAImage;
   handleLike: (key: string, liked: boolean) => void;
@@ -32,24 +33,6 @@ const ImageCard = ({ imageData, handleLike, index }: ImageCardProps) => {
       ].join(" ")}
       onDoubleClick={innerLike}
     >
-      {/* {liked && (
-        <i
-          style={{
-            position: "absolute",
-            top: inspected ? 50 : 6,
-            right: inspected ? 13 : 13,
-            zIndex: 1,
-            color: "red",
-          }}
-          className={[
-            "fas",
-            "fa-heart",
-            "fa-2x",
-            styles.liked,
-            animations["slide-in-blurred-bl"],
-          ].join(" ")}
-        ></i>
-      )} */}
       <div className={styles["header-uninspected"]}>
         <p className={[styles.date].join(" ")}>
           {imageData.copyright || "Anonymous"}, {imageData.date}
@@ -58,18 +41,21 @@ const ImageCard = ({ imageData, handleLike, index }: ImageCardProps) => {
           tabIndex={1}
           className={[
             styles["heart-icon"],
-            liked && animations["slide-in-blurred-bl"],
-            !liked && animations["slide-out-blurred-br"],
-            inspected ? styles.hidden : "",
+            inspected ? styles["heart-hidden"] : "",
           ].join(" ")}
           onSubmit={innerLike}
         >
+          <i
+            style={{ position: "absolute", top: 1 }}
+            className={["fas", "fa-heart", "fa-2x"].join(" ")}
+          ></i>
           <i
             className={[
               "fas",
               "fa-heart",
               "fa-2x",
-              liked ? styles.liked : "",
+              liked && animations["slide-in-blurred-bl"],
+              liked && styles.liked,
             ].join(" ")}
           ></i>
         </button>
@@ -93,15 +79,20 @@ const ImageCard = ({ imageData, handleLike, index }: ImageCardProps) => {
             tabIndex={1}
             className={[
               styles["heart-icon"],
-              !inspected ? styles.hidden : "",
+              !inspected ? styles["heart-hidden"] : "",
             ].join(" ")}
             onSubmit={innerLike}
           >
+            <i
+              style={{ position: "absolute", right: 5 }}
+              className={["fas", "fa-heart", "fa-2x"].join(" ")}
+            ></i>
             <i
               className={[
                 "fas",
                 "fa-heart",
                 "fa-2x",
+                liked && animations["slide-in-blurred-bl"],
                 liked ? styles.liked : "",
               ].join(" ")}
             ></i>

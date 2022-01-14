@@ -98,6 +98,7 @@ body {
 }
 
 .heart-icon {
+  position: relative;
   margin-right: 10px;
 }
 
@@ -133,6 +134,11 @@ button:focus-visible {
 
 .hidden {
   display: none;
+}
+.heart-hidden {
+  pointer-events: none;
+  position: absolute;
+  opacity: 0;
 }
 
 .date {
@@ -184,4 +190,9 @@ button:focus-visible {
   width: 100%;
   transition: opacity 0.5s;
   align-items: center;
+}
+
+.delay-hide {
+  transition: opacity 0s;
+  transition-delay: 0.9s;
 }
