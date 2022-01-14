@@ -2,7 +2,6 @@ import { NASAImage } from "../types";
 import styles from "../styles/imageCard.module.css";
 import animations from "../styles/animation.module.css";
 import React, { useEffect } from "react";
-import { positional } from "yargs";
 type ImageCardProps = {
   imageData: NASAImage;
   handleLike: (key: string, liked: boolean) => void;
@@ -15,6 +14,8 @@ const ImageCard = ({ imageData, handleLike, index }: ImageCardProps) => {
   );
 
   const innerLike = () => {
+    console.log("hello");
+
     handleLike(imageData.key, !liked);
     setLiked((old) => !old);
   };
@@ -38,12 +39,12 @@ const ImageCard = ({ imageData, handleLike, index }: ImageCardProps) => {
           {imageData.copyright || "Anonymous"}, {imageData.date}
         </p>
         <button
-          tabIndex={1}
+          tabIndex={inspected ? -1 : index + 1}
           className={[
             styles["heart-icon"],
             inspected ? styles["heart-hidden"] : "",
           ].join(" ")}
-          onSubmit={innerLike}
+          onClick={innerLike}
         >
           <i
             style={{ position: "absolute", top: 1 }}
@@ -61,6 +62,7 @@ const ImageCard = ({ imageData, handleLike, index }: ImageCardProps) => {
         </button>
       </div>
       <img
+        tabIndex={index}
         className={styles["nasa-image"]}
         src={imageData.hdurl}
         alt={imageData.title}
@@ -68,7 +70,7 @@ const ImageCard = ({ imageData, handleLike, index }: ImageCardProps) => {
       <div className={styles.info}>
         <div className={styles.header}>
           <button
-            tabIndex={1}
+            tabIndex={index + 2}
             className={styles["times-icon"]}
             onClick={handleClose}
           >
@@ -76,15 +78,15 @@ const ImageCard = ({ imageData, handleLike, index }: ImageCardProps) => {
           </button>
           <h1 className={styles["image-title"]}>{imageData.title}</h1>
           <button
-            tabIndex={1}
+            tabIndex={inspected ? index + 2 : -1}
             className={[
               styles["heart-icon"],
               !inspected ? styles["heart-hidden"] : "",
             ].join(" ")}
-            onSubmit={innerLike}
+            onClick={innerLike}
           >
             <i
-              style={{ position: "absolute", right: 5 }}
+              style={{ position: "absolute", right: 6 }}
               className={["fas", "fa-heart", "fa-2x"].join(" ")}
             ></i>
             <i
@@ -100,7 +102,7 @@ const ImageCard = ({ imageData, handleLike, index }: ImageCardProps) => {
         </div>
         <button
           onClick={() => setInspected(true)}
-          tabIndex={1}
+          tabIndex={index}
           aria-hidden={!inspected}
           className={[
             inspected ? styles.hidden : "",

@@ -99,6 +99,8 @@ body {
 
 .heart-icon {
   position: relative;
+  z-index: 3;
+  cursor: pointer;
   margin-right: 10px;
 }
 
