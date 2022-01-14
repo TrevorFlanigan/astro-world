@@ -7,22 +7,19 @@ import _ from "lodash";
 let newWeek = getNextWeek();
 
 function App() {
-  const [fetching, setFetching] = React.useState(false);
   const [imageData, setImageData] = React.useState<NASAImage[]>([]);
   const handleLike = (key: string, liked: boolean) => {
     localStorage.setItem(key, liked + "");
   };
   const handleLoadImages = useCallback(async () => {
-    if (fetching) {
-      return;
-    }
-    setFetching(true);
     let res = await newWeek();
-    setFetching(false);
     setImageData((old) => [...old, ...res]);
-  }, [fetching]);
+  }, []);
 
-  const throttledLoadImages = _.throttle(handleLoadImages, 2000);
+  const throttledLoadImages = useCallback(
+    () => _.throttle(handleLoadImages, 2000),
+    [handleLoadImages]
+  )();
 
   useEffect(() => {
     throttledLoadImages();
@@ -30,14 +27,11 @@ function App() {
 
   useEffect(() => {
     window.addEventListener("scroll", (e) => {
-      if (
-        window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - document.body.offsetHeight / 4
-      ) {
+      if (window.scrollY * 2 >= document.body.offsetHeight) {
         throttledLoadImages();
       }
     });
-  }, [throttledLoadImages]);
+  }, []);
 
   return (
     <div className={styles.App}>
