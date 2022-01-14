@@ -195,6 +195,6 @@ button:focus-visible {
 }
 
 .delay-hide {
-  transition: opacity 0s;
-  transition-delay: 0.9s;
+  /* transition: opacity 0s; */
+  transition-delay: 1s;
 }

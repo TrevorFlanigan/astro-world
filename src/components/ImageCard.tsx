@@ -47,10 +47,6 @@ const ImageCard = ({ imageData, handleLike, index }: ImageCardProps) => {
           onClick={innerLike}
         >
           <i
-            style={{ position: "absolute", top: 1 }}
-            className={["fas", "fa-heart", "fa-2x"].join(" ")}
-          ></i>
-          <i
             className={[
               "fas",
               "fa-heart",
@@ -85,10 +81,6 @@ const ImageCard = ({ imageData, handleLike, index }: ImageCardProps) => {
             ].join(" ")}
             onClick={innerLike}
           >
-            <i
-              style={{ position: "absolute", right: 6 }}
-              className={["fas", "fa-heart", "fa-2x"].join(" ")}
-            ></i>
             <i
               className={[
                 "fas",
